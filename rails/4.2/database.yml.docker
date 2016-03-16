@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: <%= ENV['POSTGRES_ENV_HOSTNAME'] || ENV['POSTGRES_PORT_5432_TCP_ADDR'] || 'localhost' %>
+  port: <%= ENV['POSTGRES_ENV_PORT'] || ENV['POSTGRES_PORT_5432_TCP_PORT'] || 5432 %>
+  username: <%= ENV['POSTGRES_ENV_USERNAME'] || ENV['POSTGRES_ENV_POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_ENV_PASSWORD'] || ENV['POSTGRES_ENV_POSTGRES_PASSWORD'] %>
+
+development:
+  <<: *default
+  database: <%= ENV['DATABASE_NAME'] %>_development
+  pool: 5
+
+staging:
+  <<: *default
+  database: <%= ENV['DATABASE_NAME'] %>_staging
+  pool: 5
+
+production:
+  <<: *default
+  database: <%= ENV['DATABASE_NAME'] %>
+  pool: 5
