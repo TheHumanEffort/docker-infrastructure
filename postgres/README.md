@@ -88,6 +88,17 @@ createdb <db_name> # make sure this works!!!
 pg_restore -Fc --no-acl --no-owner -d <db_name> pg.dump
 ```
 
+In some cases, it will be necessary to restore the DB from the web
+container.  If there isn't a DB, web processes may die, however.  If
+this happens, you can set the "command" to execute forever doing
+nothing, allowing you to `docker-cloud container exec` into the
+container and get your stuff done:
+
+```
+bash -c "tail -f /dev/null"
+```
+
+
 ## Automatic Backups
 
 Automated backups are made using `pg_dumpall`, which spits out SQL, which is
