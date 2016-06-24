@@ -3,6 +3,8 @@ postgres:
   environment:
     - POSTGRES_USER=__DB_USER__
     - POSTGRES_PASSWORD=__DB_PASSWORD__
+  volumes:
+    - .:/application
 
 web:
   build: .
