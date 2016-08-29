@@ -1,7 +1,7 @@
-web:
+app:
   build: .
   ports:
-    - "3000:3000"
+    - "8080:8080"
   volumes:
     - .:/application
-  command: npm run dev
+  command: nodemon index.js
