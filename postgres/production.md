@@ -31,6 +31,12 @@ docker-cloud container ps | grep postgres
 docker-cloud container exec <postgres-hash> bash
 ```
 
+Or using kubectl:
+```
+kubectl get pod | grep postgres
+kubectl exec -it <postgres-pod> bash
+```
+
 Once you're in, you may need to install `curl` or `openssl` (using, for example
 `apt-get install`).  Once in, use one of these scripts:
 
