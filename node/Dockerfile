@@ -31,7 +31,7 @@ RUN npm install --prefix /package
 
 # Make incremental updates to the dependencies:
 
-COPY package.json /package
+COPY package.json /package/package.json
 RUN npm install --prefix /package
 
 # Copy the application
