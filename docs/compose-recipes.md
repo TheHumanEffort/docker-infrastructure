@@ -24,8 +24,7 @@ You can also use it to start it up in the background using `docker-compose up
 
 `docker-compose stop` takes the stack and stops all of the containers.
 
-`docker-compose scale <service>=<scale>` takes a service and does what is
-necessary to get the # of copies requested (`<scale>`) of the given service, and
+`docker-compose scale <service>=<scale>` takes a service and does what is necessary to get the # of copies requested (`<scale>`) of the given service, and
 runs them in the background.
 
 `docker-compose rm` removes stopped containers
@@ -35,3 +34,26 @@ runs them in the background.
 Any of the above commands can be supplied a service name in order to narrow the
 scope of what you intend (i.e. `docker-compose up web` will only start up `web`
 and services that it depends on).
+
+## 'Bundled' environments (like Ruby Gems or NPM)
+
+In environments where there is some process by which dependencies are "packaged", re-building the docker image from scratch can be very slow.  While working on projects, this can hamper development speed and pleasure.  To mitigate this problem, we can use `docker-compose exec` to operate on the container as a VM instead of as a docker image.  For example:
+
+```ruby
+# start the app:
+docker-compose up -d rails-app
+
+# change dependencies
+emacs Gemfile
+
+# docker-compose build will be annoyingly slow,
+# instead perform:
+docker-compose exec -it rails-app bundle install
+docker-compose restart rails-app
+
+# now, in the background we could re-build things
+# if we wanted, which won't interrupt the running
+# container:
+docker-compose build rails-app
+
+```
